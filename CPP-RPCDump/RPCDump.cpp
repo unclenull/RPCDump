@@ -98,7 +98,7 @@ int try_protocol(RPC_WSTR server, RPC_WSTR protocol)
             // Print IfId
             //
             if (UuidToString(&(IfId.Uuid), &str) == RPC_S_OK) {
-                wprintf(L"IfId: %s version %d.%d\n", str, IfId.VersMajor,
+                wprintf(L"IfId: %s version %d.%d\n", (wchar_t*)str, IfId.VersMajor,
                     IfId.VersMinor);
                 std::wstring key = (wchar_t*)str;
                 std::transform(key.begin(), key.end(), key.begin(), ::toupper);
@@ -112,7 +112,7 @@ int try_protocol(RPC_WSTR server, RPC_WSTR protocol)
             // Print Annot
             //
             if (szAnnot) {
-                wprintf(L"Annotation: %s\n", szAnnot);
+                wprintf(L"Annotation: %s\n", (wchar_t*)szAnnot);
                 RpcStringFree(&szAnnot);
             }
 
@@ -120,7 +120,7 @@ int try_protocol(RPC_WSTR server, RPC_WSTR protocol)
             // Print object ID
             //
             if (UuidToString(&uuid, &str) == RPC_S_OK) {
-                wprintf(L"UUID: %s\n", str);
+                wprintf(L"UUID: %s\n", (wchar_t*)str);
                 RpcStringFree(&str);
             }
 
@@ -128,7 +128,7 @@ int try_protocol(RPC_WSTR server, RPC_WSTR protocol)
             // Print Binding
             //
             if (RpcBindingToStringBinding(hEnumBind, &str) == RPC_S_OK) {
-                wprintf(L"Binding: %s\n", str);
+                wprintf(L"Binding: %s\n", (wchar_t*)str);
                 RpcStringFree(&str);
             }
 
@@ -229,7 +229,7 @@ int try_protocol(RPC_WSTR server, RPC_WSTR protocol)
                         else if (KNOWN_ENDPOINTS.find(key) != KNOWN_ENDPOINTS.end()) {
                             szIfIIDInfo = KNOWN_ENDPOINTS.at(key);
                         }
-                        wprintf(L"  %s v%d.%d (%s)\n", str ? str : (RPC_WSTR)L"(null)",
+                        wprintf(L"  %s v%d.%d (%s)\n", str ? (wchar_t*)str : L"(null)",
                             pVector->IfId[i]->VersMajor,
                             pVector->IfId[i]->VersMinor,
                             szIfIIDInfo ? szIfIIDInfo : L"");
@@ -248,7 +248,7 @@ int try_protocol(RPC_WSTR server, RPC_WSTR protocol)
                     &princName
                 )) == RPC_S_OK) {
                     wprintf(L"RpcMgmtInqServerPrincName succeeded\n");
-                    wprintf(L"Name: %s\n", princName);
+                    wprintf(L"Name: %s\n", (wchar_t*)princName);
                     RpcStringFree(&princName);
                 }
                 else {
@@ -298,9 +298,9 @@ RPC_WSTR protocols[] = {
 void
 Usage(wchar_t* app)
 {
-    printf("Usage: %s [options] <target>\n", app);
-    printf("  options:\n");
-    printf("    -v           -- increase verbosity\n", app);
+    wprintf(L"Usage: %s [options] <target>\n", app);
+    wprintf(L"  options:\n");
+    wprintf(L"    -v           -- increase verbosity\n");
     exit(1);
 }
 
@@ -332,15 +332,15 @@ wmain(int argc, wchar_t* argv[], wchar_t* envp[])
     }
 
     if (!target) {
-        wprintf(L"[!] Usage: %s <server>\n", argv[0]);
+        Usage(argv[0]);
         exit(1);
     }
     for (i = 0; i < NUM_PROTOCOLS; i++) {
         protseq = protocols[i];
-        wprintf(L"## Testing protseq.: %s\n\n", protocols[i]);
+        wprintf(L"## Testing protseq.: %s\n\n", (wchar_t*)protocols[i]);
         nRPCInt += try_protocol(target, protseq);
     }
-    wprintf(L"[*] Found %d RPC Interfaces at '%s' (Verbosity: %d)\n", nRPCInt, target, verbosity);
+    wprintf(L"[*] Found %d RPC Interfaces at '%s' (Verbosity: %d)\n", nRPCInt, (wchar_t*)target, verbosity);
     
     
     return 0;

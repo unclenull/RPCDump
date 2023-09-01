@@ -291,7 +291,7 @@ std::unordered_map<std::wstring, LPCWSTR> KNOWN_ENDPOINTS = {
     { L"ED96B012-C8CE-4F60-A682-35535B12FF75", L"TScPubRPC (C:\\Windows\\System32\\TSCPUBSvr.dll)"},
     { L"9B3195FE-D603-43D1-A0D5-9072D7CDE122", L"(C:\\Windows\\System32\\tssdjet.dll)"},
     { L"89759FCE-5A25-4086-8967-DE12F39A60B5", L"(C:\\Windows\\System32\\tssdjet.dll)"},
-    { L"7D814569-35B3-4850-BB32-83035FCEBF6E", L"Network Policy Server (C:\Windows\System32\ias.dll)"},
+    { L"7D814569-35B3-4850-BB32-83035FCEBF6E", L"Network Policy Server (C:\\Windows\\System32\\ias.dll)"},
     { L"3357951C-A1D1-47DB-A278-AB945D063D03", L"RPC/HTTP Load Balancing Service (3357951c-a1d1-47db-a278-ab945d063d03)"}
 };
 
